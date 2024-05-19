@@ -1,0 +1,19 @@
+[package]
+name = "leptos_reqwest"
+version = "0.1.0"
+authors = ["kodecraft-mark"]
+edition = "2021"
+description = "Provides utilities for making HTTP requests with reqwest and handling responses on your Leptos project"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/kodecraft-mark/leptos_reqwest"
+
+[dependencies]
+leptos = "0.6"
+reqwest = { version = "0.12", features = ["json"] }
+serde = {version = "1.0", features = ["derive"]}
+serde_urlencoded = "0.7"
+serde_json = "1.0"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }

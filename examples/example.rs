@@ -1,8 +1,4 @@
-# leptos_reqwest
-Provides utilities for making HTTP requests with `reqwest` and handling responses on your Leptos project
 
-##Example
-```rust
 use leptos::SerializationError;
 use leptos_reqwest::{send_and_parse, HttpMethod, LeptosReqwestError};
 use reqwest::{header, Error};
@@ -78,4 +74,3 @@ async fn main() {
             }
         }
 }
-```
