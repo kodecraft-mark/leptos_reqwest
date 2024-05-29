@@ -20,6 +20,11 @@ impl LeptosReqwestError for CustomErrors {
             errors: vec![CustomError {message: e.to_string(), extensions: ErrorExtension { code: String::from("500"), reason: None }}],
         }
     }
+    fn request_error(e: String, status_code: reqwest::StatusCode) -> Self {
+        CustomErrors {
+            errors: vec![CustomError {message: e, extensions: ErrorExtension { code: status_code.to_string(), reason: Some(status_code.canonical_reason().unwrap_or_default().to_string()) }}],
+        }
+    }
 }
 impl Default for CustomErrors {
     fn default() -> Self {

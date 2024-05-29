@@ -23,6 +23,8 @@ pub trait LeptosReqwestError: Default + Serializable {
     fn deserialization_error(e: SerializationError) -> Self;
     /// Creates an error instance from a read error.
     fn read_error(e: Error) -> Self;
+
+    fn request_error(e: String, status_code: StatusCode) -> Self;
 }
 
 /// Sends an HTTP request and deserializes the response into a specified type.
@@ -123,7 +125,11 @@ where
                 }
             }
         },
-        Err(_) => Err(E::default()), // Network or other request error
+        Err(e) => {
+            log::error!("Request Error: {}", e);
+            let status_code = if let Some(status) = e.status() { status } else { StatusCode::INTERNAL_SERVER_ERROR };
+            Err(E::request_error(e.to_string(), status_code))
+        }, // Network or other request error
     }
 }
 
@@ -210,7 +216,11 @@ where
                     Err(e) => Err(E::read_error(e)), // Error getting text from response
                 }
             }
-        }
-        Err(_) => Err(E::default()),
+        },
+        Err(e) => {
+            log::error!("Request Error: {}", e);
+            let status_code = if let Some(status) = e.status() { status } else { StatusCode::INTERNAL_SERVER_ERROR };
+            Err(E::request_error(e.to_string(), status_code))
+        }, 
     }
 }
