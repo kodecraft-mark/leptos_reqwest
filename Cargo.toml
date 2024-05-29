@@ -1,6 +1,6 @@
 [package]
 name = "leptos_reqwest"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["kodecraft-mark"]
 edition = "2021"
 description = "Provides utilities for making HTTP requests with reqwest and handling responses on your Leptos project"

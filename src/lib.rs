@@ -95,7 +95,8 @@ where
                 .await
         }
     };
-    // log::info!("Response: {:?}", response);
+    log::info!("Response: {:?}", response);
+    println!(" Print Response: {:?}", response);
     match response {
         Ok(res) => {
             if res.status() == StatusCode::OK {
