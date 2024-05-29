@@ -114,6 +114,7 @@ where
             } else {
                 match res.text().await {
                     Ok(text) => {
+                        log::error!("Error response: {}", text);
                         match E::de(&text) {
                             Ok(error_result) => Err(error_result),
                             Err(e) => Err(E::deserialization_error(e)), // Fallback if E deserialization fails
@@ -122,7 +123,7 @@ where
                     Err(e) => Err(E::read_error(e)), // Error getting text from response
                 }
             }
-        }
+        },
         Err(_) => Err(E::default()), // Network or other request error
     }
 }
